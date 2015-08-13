@@ -169,6 +169,9 @@ class Contact {
 
         //close the connection
         $this->db->closeConnection($link);
+
+        //return a success message
+        return 'record deleted';
     }
 
 
@@ -185,15 +188,70 @@ class Contact {
         //execute the statement
         $preparedStatement->execute();
 
+        //get the result
+        $result = $preparedStatement->get_result();
+
         //close the statement
         $preparedStatement->close();
 
         //close the connection
         $this->db->closeConnection($link);
+
+        return $result;
     }
 
-    public function updateContact( Contact $contact) {
-        
+    /*
+     * Update a contact record in the database
+     * at the specified id
+     * @param $id
+     */
+    public function updateContact($id) {
+        $this->db = new DbConnect('localhost', 'contact','', 'root');
+        $link = $this->db->getConnection();
+
+        //prepare statement
+        $stmt = $link->prepare('UPDATE contacts SET first_name = ?, last_name = ?, others = ?,email = ?, phone_number = ? WHERE id = ?');
+
+        //bind parameters
+        $stmt->bind_param('sssssi', $this->getFirstName(), $this->getLastName(),
+                            $this->getMiddleName(), $this->getEmail(), $this->getPhoneNumber(),
+                                $id);
+
+        //execute statement
+        $stmt->execute();
+
+        //close statement
+        $stmt->close();
+
+        //close connection
+        $this->db->closeConnection($link);
+
+        return 'Record updated';
+    }
+
+    public function findContactByName($name) {
+        $this->db = new DbConnect('localhost', 'contact','', 'root');
+        $link = $this->db->getConnection();
+
+        //prepare statement
+        $stmt = $link->prepare("SELECT * FROM contacts WHERE name = ?");
+
+        //bind parameters
+        $stmt->bind_param('s', $name);
+
+        //execute statement
+        $stmt->execute();
+
+        //get the result
+        $result = $stmt->get_result();
+
+        //close the statement
+        $stmt->close();
+
+        //close the connection
+        $this->db->closeConnection($link);
+        //return the result
+        return $result;
     }
 
 }

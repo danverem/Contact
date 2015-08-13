@@ -49,4 +49,47 @@ class ContactController {
 
         $this->contact->save();
     }
+
+
+    /*
+     * delete a user from the database
+     * parameters are gotten from the
+     * http request parameters
+     * @param $id
+     * @return $message
+     */
+
+    public function deleteContact($id) {
+        $message = $this->contact->deleteContact($id);
+
+        return $message;
+    }
+
+
+    /*
+     * finds a user from the database
+     * parameters are gotten from the
+     * http request parameters
+     * @param $id
+     * @return $contact
+     */
+    public function findContactById($id) {
+        $contact = $this->contact->findContactById($id);
+        return $contact;
+    }
+
+    /*
+     * finds a user from the database
+     * parameters are gotten from the
+     * http request parameters
+     * @param $name
+     * @return $contact
+     */
+
+    public function findContactByName($name) {
+        $contact = $this->contact->findContactByName($name);
+
+        return $contact;
+    }
+
 }
