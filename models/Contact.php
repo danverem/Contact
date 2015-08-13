@@ -135,7 +135,7 @@ class Contact {
 
         //prepare a sql statement
         $link = $this->db->getConnection();
-        $stmt = $link->prepare("INSERT INTO contact(first_name, last_name,others, phone_number, email, tone_id) VALUES(?,?,?,?,?,?)");
+        $stmt = $link->prepare("INSERT INTO contacts(first_name, last_name,others, phone_number, email, tone_id) VALUES(?,?,?,?,?,?)");
 
         //bind parameters
         $stmt->bind_param("sssssi",
@@ -145,6 +145,55 @@ class Contact {
 
         //execute the statement.
         $stmt->execute();
+
+        $stmt->close();
+        $this->db->closeConnection($link);
+    }
+
+
+    public function deleteContact($id) {
+        $this->db = new DbConnect('localhost', 'contact','', 'root');
+        $link = $this->db->getConnection();
+
+        //prepare statement
+        $preparedStatement = $link->prepare("DELETE FROM contacts WHERE contact_id = ?");
+
+        //bind parameters
+        $preparedStatement->bind_param('i', $id);
+
+        //execute the statement
+        $preparedStatement->execute();
+
+        //close the statment
+        $preparedStatement->close();
+
+        //close the connection
+        $this->db->closeConnection($link);
+    }
+
+
+    public function findContactById($id) {
+        $this->db = new DbConnect('localhost', 'contact','', 'root');
+        $link = $this->db->getConnection();
+
+        //prepare statement
+        $preparedStatement = $link->prepare("SELECT * FROM contacts WHERE contact_id = ?");
+
+        //bind parameters
+        $preparedStatement->bind_param('i', $id);
+
+        //execute the statement
+        $preparedStatement->execute();
+
+        //close the statement
+        $preparedStatement->close();
+
+        //close the connection
+        $this->db->closeConnection($link);
+    }
+
+    public function updateContact( Contact $contact) {
+        
     }
 
 }
