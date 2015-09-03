@@ -22,13 +22,13 @@ class Contact {
     private $tone;
 
 
-    public function __construct($first, $last, $phone, Group $group = null, Tone $tone) {
-        $this->firstName = $first;
-        $this->lastName = $last;
-        $this->phoneNumber = $this->setPhone($phone);
-        $this->group = $group;
-        $this->tone = $tone;
-    }
+//    public function __construct($first, $last, $phone, Group $group = null, Tone $tone) {
+//        $this->firstName = $first;
+//        $this->lastName = $last;
+//        $this->phoneNumber = $this->setPhone($phone);
+//        $this->group = $group;
+//        $this->tone = $tone;
+//    }
     /*
      * Set the first name of the user.
      * @param $first

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+ <meta charset="UTF-8">
+ <title>New Contact</title>
+ <?php include_once("Controllers/Http/ContactController.class.php") ?>
+</head>
+<body>
+<?php
+ $first = $_POST['first'];
+ $last = $_POST['last'];
+ $mid = $_POST['other'];
+ $email = $_POST['email'];
+ $phone = $_POST['phone'];
+
+ createContact($first, $mid, $last, $email, $phone);
+
+ var_dump('I got here');
+?>
+</body>
+</html>
